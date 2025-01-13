@@ -1,10 +1,16 @@
-import Container from "../../Container";
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { useQuery } from "@tanstack/react-query";
+
 import { generateUniqueString } from "../../utils/generateUniqueString";
+
 import { run } from "../../config/gemini.config";
+
+import Container from "../../Container";
 import CreateplanPreLoader from "../../components/common/PreLoader/CreateplanPreLoader";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { addToTripHistory } from "../../utils/firebase.utils";
 
 const PlanCreationForm = lazy(() => import("../../features/GeneratePlan"));
 
@@ -61,11 +67,12 @@ const CreatePlanPage = () => {
       !!userPreference.travelBudgetType &&
       !!userPreference.tripTypes,
   });
-
+  const { user } = useAuthContext();
+  const planid = useMemo(() => generateUniqueString(), []);
   useEffect(() => {
-    if (generatedPlan) {
-      console.log(generatedPlan);
-      const planid = generateUniqueString();
+    if (generatedPlan && user?.email) {
+      addToTripHistory(generatedPlan, user?.email);
+
       navigate(`${planid}`, { state: generatedPlan });
     }
   }, [generatedPlan]);
@@ -76,9 +83,11 @@ const CreatePlanPage = () => {
 
   if (planError)
     return (
-      <p className="">
-        {planError.message} {planError.name}
-      </p>
+      <section className="min-h-screen flex flex-col items-center">
+        <p className="text-balance text-xl my-6 first-letter:uppercase">
+          {"something went wrong"}
+        </p>
+      </section>
     );
 
   return (

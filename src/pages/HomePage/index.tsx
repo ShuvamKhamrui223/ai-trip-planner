@@ -7,10 +7,10 @@ const HomePage = () => {
   return (
     <>
       {" "}
-      <div className="bg-gray-950 ">
-        <div className="relative isolate px-6 pt-14 lg:px-8">
+      <div className="">
+        <div className="px-6 pt-14 lg:px-8">
           <div className="mx-auto max-w-2xl">
-            <div className="text-center">
+            <div className="">
               <h1 className="text-balance text-5xl font-semibold tracking-tight text-gray-300 sm:text-7xl">
                 Your Ultimate Travel Companion: Plan Smarter with AI
               </h1>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { NavLink } from "react-router-dom";
 import Logout from "../../../features/Logout";
 
@@ -45,7 +45,8 @@ type TMenu = {
 type DesktopNavMenuProps = {
   menuItems: TMenu[];
 };
-const DesktopNavMenu: React.FC<DesktopNavMenuProps> = ({ menuItems }) => {
+
+const DesktopNavMenu: React.FC<DesktopNavMenuProps> = memo(({ menuItems }) => {
   return (
     <ul className="font-medium h-full w-full  flex-col md:p-0 rounded-lg hidden md:flex md:flex-row md:space-x-8 rtl:space-x-reverse ">
       {menuItems.map((item) => (
@@ -65,12 +66,12 @@ const DesktopNavMenu: React.FC<DesktopNavMenuProps> = ({ menuItems }) => {
       ))}
     </ul>
   );
-};
+});
 
-const MobileNavMenu: React.FC<DesktopNavMenuProps> = ({ menuItems }) => {
+const MobileNavMenu: React.FC<DesktopNavMenuProps> = (({ menuItems }) => {
   return (
     <ul
-      className={`font-medium h-full w-full  flex-col md:p-0 rounded-lg flex md:flex-row md:space-x-8 rtl:space-x-reverse z-[100]`}
+      className={`font-medium h-full w-full  flex-col md:p-0 rounded-lg flex md:flex-row md:space-x-8 rtl:space-x-reverse z-50`}
     >
       {menuItems.map((item) => (
         <li key={item.itemLabel}>
@@ -78,7 +79,7 @@ const MobileNavMenu: React.FC<DesktopNavMenuProps> = ({ menuItems }) => {
             to={item.pathTo}
             className={({ isActive }) =>
               `block py-2 px-3 text-gray-200 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-gray-300/80 capitalize ${
-                isActive && "font-bold dark:text-gray-200"
+                isActive && "font-bold dark:text-gray-200 bg-blue-600"
               }`
             }
             aria-current="page"
@@ -89,4 +90,4 @@ const MobileNavMenu: React.FC<DesktopNavMenuProps> = ({ menuItems }) => {
       ))}
     </ul>
   );
-};
+});
