@@ -72,7 +72,6 @@ const CreatePlanPage = () => {
   useEffect(() => {
     if (generatedPlan && user?.email) {
       addToTripHistory(generatedPlan, user?.email);
-
       navigate(`${planid}`, { state: generatedPlan });
     }
   }, [generatedPlan]);

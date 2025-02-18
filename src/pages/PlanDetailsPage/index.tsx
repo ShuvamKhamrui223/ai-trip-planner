@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import Container from "../../Container";
 import { GeminiResponse } from "../../types/geminiResponse";
-import { lazy, Suspense, useEffect, useState} from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import TripBasicsInfo from "./components/TripBasicsInfo";
 import TripNote from "./components/TripNote";
 
@@ -12,7 +12,7 @@ const PlanDetailsPage = () => {
   const { state: locationState } = useLocation();
   const [planDetails, setPlanDetails] = useState<GeminiResponse>();
   useEffect(() => {
-    locationState && setPlanDetails(JSON.parse(locationState)[0]);
+    locationState && setPlanDetails(JSON.parse(locationState));
   }, [locationState]);
 
   return (
